@@ -25,6 +25,15 @@ const ColorList = ({ colors, updateColors }) => {
 
   const deleteColor = color => {
     // make a delete request to delete this color
+    axios
+      .delete("http://localhost:5000/api/colors/:id")
+      .then(res => {
+        console.log(res);
+        props.setColorList(props.colorList.filter(item=>item.id!==color.id))
+     push("/")
+      })
+      .catch(err => console.log(err));
+  }
   };
 
   return (
