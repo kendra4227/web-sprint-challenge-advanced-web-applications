@@ -11,7 +11,7 @@ import axios from "axios";
         }
 }
   //POST REQUEST 
-axios.post("http://localhost:5000/api/login", this.state.credentials)
+axios.post("http://localhost:5000/api/login",state.credentials)
 .then(res=> { 
     console.log(res)
     localStorage.setItem("token", res.data.payload); 
@@ -52,13 +52,13 @@ return(
             <input 
             type="text" 
             name="username" 
-            value={this.state.credentials.username}
+            value={state.credentials.username}
             onChange={handleChange}/>
 
 <input 
             type="password" 
             name="password" 
-            value={this.state.credentials.password}
+            value={state.credentials.password}
             onChange={handleChange}/>
 
             <button>Log In</button>
