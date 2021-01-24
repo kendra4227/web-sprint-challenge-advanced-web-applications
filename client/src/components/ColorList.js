@@ -6,7 +6,7 @@ const initialColor = {
 	code: { hex: '' },
 }
 
-const ColorList = ({ colors, updateColors, setNewColor }) => {
+ const ColorList = ({ colors, updateColors, setNewColor }) => {
 	console.log(colors)
 	const [editing, setEditing] = useState(false)
 	const [colorToEdit, setColorToEdit] = useState(initialColor)
@@ -17,26 +17,36 @@ const ColorList = ({ colors, updateColors, setNewColor }) => {
 
 	const saveEdit = (e) => {
 		e.preventDefault()
-		// Make a put request to save your updated color
-		// think about where will you get the id from...
-		// where is is saved right now?
+	
 		axiosWithAuth()
-			.put(`colors/${colorToEdit.id}`, colorToEdit)
-			.then((res) => {
-				console.log(res.data)
-				setNewColor(true)
-			})
-			.catch((err) => console.log(err))
-	}
-
+    .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
+    .then(res => {
+      console.log("This is from saveEdit",  res);
+      updateColors([
+        ...colors.map(color => {
+          if (color.id === colorToEdit.id) {
+            return colorToEdit
+          } else {
+            return color
+          }
+        })
+      ])
+    });
 	const deleteColor = (color) => {
 		// make a delete request to delete this color
 		axiosWithAuth()
-			.delete(`/colors/${color.id}`)
-			.then((res) => {
-				console.log(res)
-				updateColors(colors.filter((col) => col.id !== color.id))
-			})
+     .delete(`/api/colors/${color.id}`)
+     .then((res) => {
+       console.log("Successful axios delete request", res);
+       updateColors(
+         colors.filter((hue) => {
+           return hue.id !== color.id;
+         })
+       )
+     })
+     .catch((err) => {
+       console.log("There's a problem with the delete function "+ err.message)
+     })
 	}
 
 	return (
@@ -99,5 +109,5 @@ const ColorList = ({ colors, updateColors, setNewColor }) => {
 		</div>
 	)
 }
-
-export default ColorList
+}
+export default ColorList;
