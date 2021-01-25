@@ -13,7 +13,7 @@ const BubblePage = (props) => {
   // set that data to the colorList state property
   useEffect(() => {
 		axiosWithAuth()
-			.get('colors')
+			.get('api/colors')
 			.then((res) => {
 				setColorList(res.data)
 				setNewColor(false)

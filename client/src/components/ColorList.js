@@ -15,23 +15,23 @@ const initialColor = {
 		setColorToEdit(color)
 	}
 
-	const saveEdit = (e) => {
-		e.preventDefault()
-	
+	const saveEdit = e => {
+		e.preventDefault();
 		axiosWithAuth()
-    .put(`/api/colors/${colorToEdit.id}`, colorToEdit)
-    .then(res => {
-      console.log("This is from saveEdit",  res);
-      updateColors([
-        ...colors.map(color => {
-          if (color.id === colorToEdit.id) {
-            return colorToEdit
-          } else {
-            return color
-          }
-        })
-      ])
-    });
+		.put(`/api/colors/${colorToEdit.id}`, colorToEdit)
+		.then(res => {
+		  console.log("This is from saveEdit",  res);
+		  updateColors([
+			...colors.map(color => {
+			  if (color.id === colorToEdit.id) {
+				return colorToEdit
+			  } else {
+				return color
+			  }
+			})
+		  ])
+		})
+	  };
 	const deleteColor = (color) => {
 		// make a delete request to delete this color
 		axiosWithAuth()
@@ -109,5 +109,5 @@ const initialColor = {
 		</div>
 	)
 }
-}
+
 export default ColorList;

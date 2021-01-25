@@ -28,10 +28,10 @@ const handleSubmit = (e) =>{
   .post('/api/login', credentials)
   .then(res => {
     localStorage.setItem('token', res.data.payload);
-    history.push('/api/colors')
+    history.push('/protected')
   })
   .catch(err => {
-    console.log('POST ERROR: ' + err)
+    console.log('POST ERROR:', err)
   })
   setCredentials(credentials)
 }
